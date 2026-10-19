@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E-Rechnung erstellen – kostenlos, ohne Anmeldung (XRechnung 3.0)</title>
+<meta name="description" content="Kostenlos XRechnung 3.0 erstellen – für Freelancer und Kleinunternehmer (§ 19 UStG). Läuft komplett im Browser, keine Daten auf Servern, offiziell validiert.">
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#1b2430; --muted:#5b6675; --line:#dfe3e8; --accent:#0b6bcb; --ok:#13804a; --err:#b42318; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#11151a; --card:#1a2028; --ink:#e7ecf2; --muted:#9aa6b4; --line:#2c3540; --accent:#4ea1ff; --ok:#3ccf86; --err:#ff7a6e; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  header, main, footer { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+  header { padding-top: 28px; }
+  h1 { font-size: 1.7rem; margin: 0 0 4px; }
+  .lead { color: var(--muted); margin: 0 0 18px; }
+  .badges span { display:inline-block; font-size:.8rem; border:1px solid var(--line); border-radius:99px; padding:2px 10px; margin:0 6px 6px 0; background:var(--card); }
+  section { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0; }
+  h2 { font-size:1.05rem; margin:0 0 12px; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap:10px 14px; }
+  label { display:block; font-size:.82rem; color:var(--muted); }
+  input, select, textarea { width:100%; font:inherit; color:var(--ink); background:transparent; border:1px solid var(--line); border-radius:8px; padding:7px 9px; margin-top:3px; }
+  input:focus, select:focus, textarea:focus { outline:2px solid var(--accent); outline-offset:-1px; }
+  .check { display:flex; gap:8px; align-items:center; color:var(--ink); font-size:.95rem; }
+  .check input { width:auto; margin:0; }
+  table { width:100%; border-collapse:collapse; }
+  th { text-align:left; font-size:.78rem; color:var(--muted); font-weight:500; padding:4px; }
+  td { padding:4px; vertical-align:top; }
+  td.num { text-align:right; white-space:nowrap; padding-top:12px; }
+  .lines input, .lines select { margin:0; }
+  button { font:inherit; border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:8px; padding:8px 14px; cursor:pointer; }
+  button.primary { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
+  button.link { border:none; background:none; color:var(--muted); padding:4px 8px; }
+  .totals { margin-left:auto; max-width:320px; }
+  .totals div { display:flex; justify-content:space-between; padding:2px 0; }
+  .totals .grand { font-weight:700; border-top:1px solid var(--line); margin-top:4px; padding-top:6px; }
+  .actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  #messages { margin-top:10px; font-size:.9rem; }
+  #messages .err { color:var(--err); }
+  #messages .ok { color:var(--ok); }
+  .pro { border-color: var(--accent); }
+  .pro ul { margin:6px 0 12px; padding-left:20px; }
+  footer { color:var(--muted); font-size:.85rem; padding-bottom:40px; }
+  footer a, .pro a { color:var(--accent); }
+  @media (max-width: 640px) { .lines thead { display:none; } .lines tr { display:grid; grid-template-columns: 1fr 1fr; gap:4px; border-bottom:1px solid var(--line); padding:6px 0; } .lines td:first-child { grid-column: 1 / -1; } }
+  /* Print view = human-readable invoice */
+  #print { display:none; }
+  @media print {
+    body { background:#fff; color:#000; }
+    header, main, footer { display:none; }
+    #print { display:block; padding: 10mm 12mm; font-size: 10.5pt; }
+    #print table { border-collapse:collapse; width:100%; }
+    #print th, #print td { border-bottom:1px solid #ccc; padding:4px 6px; text-align:left; }
+    #print .r { text-align:right; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>E-Rechnung erstellen</h1>
+  <p class="lead">XRechnung 3.0 für Freelancer &amp; Kleinunternehmer – kostenlos, ohne Anmeldung. Alles läuft in deinem Browser; deine Daten verlassen deinen Rechner nicht.</p>
+  <div class="badges"><span>✔ XRechnung 3.0 (CII)</span><span>✔ Kleinunternehmer § 19 UStG</span><span>✔ geprüft mit offiziellen KoSIT-Regeln</span><span>✔ 100 % lokal</span></div>
+</header>
+
+<main>
+<form id="f" autocomplete="on" onsubmit="return false">
+<section>
+  <h2>Deine Daten (Rechnungssteller)</h2>
+  <div class="grid">
+    <label>Name / Firma<input name="seller.name" required></label>
+    <label>Ansprechpartner<input name="seller.contactName" required></label>
+    <label>Straße, Nr.<input name="seller.street" required></label>
+    <label>PLZ<input name="seller.zip" required></label>
+    <label>Ort<input name="seller.city" required></label>
+    <label>Land (ISO)<input name="seller.country" value="DE" maxlength="2"></label>
+    <label>E-Mail<input name="seller.email" type="email" required></label>
+    <label>Telefon<input name="seller.phone" required></label>
+    <label>Steuernummer<input name="seller.taxNumber" placeholder="z. B. 30/123/45678"></label>
+    <label>USt-IdNr. (falls vorhanden)<input name="seller.vatId" placeholder="DE123456789"></label>
+    <label>IBAN<input name="seller.iban" required></label>
+    <label>BIC (optional)<input name="seller.bic"></label>
+  </div>
+  <p><label class="check"><input type="checkbox" name="seller.kleinunternehmer"> Ich bin Kleinunternehmer (§ 19 UStG) – keine Umsatzsteuer ausweisen</label></p>
+  <p style="margin:0"><label class="check"><input type="checkbox" id="remember" checked> Meine Daten in diesem Browser merken (nur lokal gespeichert)</label></p>
+</section>
+
+<section>
+  <h2>Kunde (Rechnungsempfänger)</h2>
+  <div class="grid">
+    <label>Name / Firma<input name="buyer.name" required></label>
+    <label>Straße, Nr.<input name="buyer.street" required></label>
+    <label>PLZ<input name="buyer.zip" required></label>
+    <label>Ort<input name="buyer.city" required></label>
+    <label>Land (ISO)<input name="buyer.country" value="DE" maxlength="2"></label>
+    <label>E-Mail für Rechnungen<input name="buyer.email" type="email" required></label>
+    <label>USt-IdNr. Kunde (optional)<input name="buyer.vatId"></label>
+    <label>Käuferreferenz / Leitweg-ID (optional)<input name="buyerReference" placeholder="bei Behörden Pflicht"></label>
+  </div>
+</section>
+
+<section>
+  <h2>Rechnung</h2>
+  <div class="grid">
+    <label>Rechnungsnummer<input name="number" required></label>
+    <label>Rechnungsdatum<input name="issueDate" type="date" required></label>
+    <label>Leistungsdatum<input name="deliveryDate" type="date"></label>
+    <label>Fällig am<input name="dueDate" type="date"></label>
+    <label>Rechnungsart<select name="typeCode"><option value="380">Rechnung</option><option value="381">Rechnungskorrektur / Storno</option></select></label>
+    <label id="taxModeLabel">Steuerfall<select name="taxMode"><option value="">Normal (19 % / 7 %)</option><option value="AE">Reverse Charge (EU-Leistung an Unternehmen)</option><option value="K">Innergemeinschaftliche Lieferung (Waren in EU)</option></select></label>
+    <div id="precedingFields" style="display:none"><label>Bezug auf Rechnungsnr.<input name="precedingInvoice"></label><label>vom<input name="precedingInvoiceDate" type="date"></label></div>
+    <label>Bestellnummer (optional)<input name="orderRef"></label>
+    <label>Zahlungsbedingungen<input name="paymentTerms" value="Zahlbar innerhalb von 14 Tagen ohne Abzug."></label>
+  </div>
+  <label style="margin-top:10px">Hinweis auf der Rechnung (optional)<textarea name="note" rows="2"></textarea></label>
+</section>
+
+<section>
+  <h2>Positionen</h2>
+  <table class="lines">
+    <thead><tr><th style="width:36%">Bezeichnung</th><th style="width:10%">Menge</th><th style="width:14%">Einheit</th><th style="width:15%">Einzelpreis netto</th><th class="vatcol" style="width:10%">USt</th><th class="num">Summe</th><th></th></tr></thead>
+    <tbody id="lines"></tbody>
+  </table>
+  <p><button type="button" id="addLine">+ Position</button></p>
+  <div class="totals" id="totals"></div>
+</section>
+
+<section>
+  <div class="actions">
+    <button type="button" class="primary" id="dlXml">XRechnung (XML) herunterladen</button>
+    <button type="button" id="printBtn">Ansicht drucken / als PDF speichern</button>
+    <button type="button" class="link" id="nextNumber">Neue Rechnung (Nummer +1)</button>
+  </div>
+  <div id="messages"></div>
+</section>
+</form>
+
+<section class="pro">
+  <h2>Pro-Version (Offline, einmalig)</h2>
+  <p style="margin:0">Für alle, die regelmäßig Rechnungen schreiben:</p>
+  <ul>
+    <li><b>ZUGFeRD-PDF</b> mit eingebetteter XRechnung – eine Datei für Mensch und Maschine</li>
+    <li>Kunden- und Artikelstamm, automatische Rechnungsnummern</li>
+    <li>Läuft als einzelne Datei offline auf deinem Rechner – kein Abo, keine Cloud</li>
+  </ul>
+  <p style="margin:0" id="proLink"><a href="https://janjansa.gumroad.com/l/ZUGFeRD">E-Rechnung Pro ansehen – 9 € einmalig</a></p>
+</section>
+</main>
+
+<footer>
+  <p>Hinweis: Dieses Werkzeug erzeugt XRechnung-Dateien nach Standard EN 16931 / XRechnung 3.0 und wurde mit den offiziellen Prüfregeln getestet. Es ersetzt keine Steuerberatung. Prüfe deine Angaben vor dem Versand.</p>
+  <p><a href="impressum.html">Impressum &amp; Datenschutz</a> · Open Source</p>
+</footer>
+
+<div id="print"></div>
+
+<script src="xrechnung.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
