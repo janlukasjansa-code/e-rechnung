@@ -3,8 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>E-Rechnung erstellen – kostenlos, ohne Anmeldung (XRechnung 3.0)</title>
-<meta name="description" content="Kostenlos XRechnung 3.0 erstellen – für Freelancer und Kleinunternehmer (§ 19 UStG). Läuft komplett im Browser, keine Daten auf Servern, offiziell validiert.">
+<title>XRechnung erstellen kostenlos – E-Rechnung online, ohne Anmeldung (XRechnung 3.0)</title>
+<meta name="description" content="Kostenlos XRechnung 3.0 erstellen – für Freelancer und Kleinunternehmer (§ 19 UStG). Läuft komplett im Browser, keine Daten auf Servern, gegen die offiziellen Prüfregeln getestet.">
+<!-- seo -->
+<link rel="canonical" href="https://janlukasjansa-code.github.io/e-rechnung/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="XRechnung erstellen kostenlos – im Browser, ohne Anmeldung">
+<meta property="og:description" content="XRechnung 3.0 für Freelancer &amp; Kleinunternehmer. Daten bleiben lokal.">
+<meta property="og:url" content="https://janlukasjansa-code.github.io/e-rechnung/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "E-Rechnung erstellen (XRechnung 3.0)", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "url": "https://janlukasjansa-code.github.io/e-rechnung/", "inLanguage": "de", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "description": "Kostenloses Browser-Tool zum Erstellen von XRechnungen 3.0 für Freelancer und Kleinunternehmer."}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Muss ich als Kleinunternehmer E-Rechnungen ausstellen?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Kleinunternehmer nach § 19 UStG sind von der Pflicht zur Ausstellung von E-Rechnungen ausgenommen. Empfangen können müssen sie E-Rechnungen seit dem 1. Januar 2025 trotzdem, dafür reicht ein E-Mail-Postfach. Viele Kunden und Behörden wünschen sich dennoch eine XRechnung."}}, {"@type": "Question", "name": "Ab wann müssen Unternehmen E-Rechnungen ausstellen?", "acceptedAnswer": {"@type": "Answer", "text": "Bis Ende 2026 sind Papier- und PDF-Rechnungen im B2B-Bereich noch erlaubt. 2027 gilt das nur noch für Unternehmen mit einem Vorjahresumsatz bis 800.000 Euro. Ab 2028 müssen alle umsatzsteuerpflichtigen Unternehmen im Inland E-Rechnungen ausstellen."}}, {"@type": "Question", "name": "Ist ein normales PDF eine E-Rechnung?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Eine E-Rechnung muss in einem strukturierten Format nach EN 16931 vorliegen, zum Beispiel als XRechnung (XML) oder als ZUGFeRD-PDF ab Version 2.0.1 mit eingebetteten XML-Daten."}}, {"@type": "Question", "name": "Werden meine Rechnungsdaten auf einem Server gespeichert?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Das Tool läuft vollständig in deinem Browser. Die Daten verlassen deinen Rechner nicht. Wenn du „Daten merken“ aktivierst, werden nur deine Absenderdaten im lokalen Speicher deines Browsers abgelegt."}}, {"@type": "Question", "name": "Was kostet das Tool?", "acceptedAnswer": {"@type": "Answer", "text": "Die XRechnung-Erstellung ist kostenlos. Die Pro-Version mit ZUGFeRD-PDF, Kunden- und Artikelliste, Rechnungsnummern und Archiv kostet einmalig 9 Euro."}}]}]}</script>
+<!-- /seo -->
 <style>
   :root { --bg:#f6f7f9; --card:#fff; --ink:#1b2430; --muted:#5b6675; --line:#dfe3e8; --accent:#0b6bcb; --ok:#13804a; --err:#b42318; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#11151a; --card:#1a2028; --ink:#e7ecf2; --muted:#9aa6b4; --line:#2c3540; --accent:#4ea1ff; --ok:#3ccf86; --err:#ff7a6e; } }
@@ -143,6 +151,20 @@
     <li>Läuft als einzelne Datei offline auf deinem Rechner – kein Abo, keine Cloud</li>
   </ul>
   <p style="margin:0" id="proLink"><a href="https://janjansa.gumroad.com/l/ZUGFeRD">E-Rechnung Pro ansehen – 9 € einmalig</a></p>
+</section>
+
+<section id="faq">
+  <h2>Häufige Fragen zur E-Rechnung</h2>
+  <h3 style="font-size:.98rem;margin:14px 0 4px">Muss ich als Kleinunternehmer E-Rechnungen ausstellen?</h3>
+  <p style="margin:0;color:var(--muted)">Nein. Kleinunternehmer nach § 19 UStG sind von der Pflicht zur Ausstellung von E-Rechnungen ausgenommen. Empfangen können müssen sie E-Rechnungen seit dem 1. Januar 2025 trotzdem, dafür reicht ein E-Mail-Postfach. Viele Kunden und Behörden wünschen sich dennoch eine XRechnung.</p>
+  <h3 style="font-size:.98rem;margin:14px 0 4px">Ab wann müssen Unternehmen E-Rechnungen ausstellen?</h3>
+  <p style="margin:0;color:var(--muted)">Bis Ende 2026 sind Papier- und PDF-Rechnungen im B2B-Bereich noch erlaubt. 2027 gilt das nur noch für Unternehmen mit einem Vorjahresumsatz bis 800.000 Euro. Ab 2028 müssen alle umsatzsteuerpflichtigen Unternehmen im Inland E-Rechnungen ausstellen.</p>
+  <h3 style="font-size:.98rem;margin:14px 0 4px">Ist ein normales PDF eine E-Rechnung?</h3>
+  <p style="margin:0;color:var(--muted)">Nein. Eine E-Rechnung muss in einem strukturierten Format nach EN 16931 vorliegen, zum Beispiel als XRechnung (XML) oder als ZUGFeRD-PDF ab Version 2.0.1 mit eingebetteten XML-Daten.</p>
+  <h3 style="font-size:.98rem;margin:14px 0 4px">Werden meine Rechnungsdaten auf einem Server gespeichert?</h3>
+  <p style="margin:0;color:var(--muted)">Nein. Das Tool läuft vollständig in deinem Browser. Die Daten verlassen deinen Rechner nicht. Wenn du „Daten merken“ aktivierst, werden nur deine Absenderdaten im lokalen Speicher deines Browsers abgelegt.</p>
+  <h3 style="font-size:.98rem;margin:14px 0 4px">Was kostet das Tool?</h3>
+  <p style="margin:0;color:var(--muted)">Die XRechnung-Erstellung ist kostenlos. Die Pro-Version mit ZUGFeRD-PDF, Kunden- und Artikelliste, Rechnungsnummern und Archiv kostet einmalig 9 Euro.</p>
 </section>
 </main>
 
